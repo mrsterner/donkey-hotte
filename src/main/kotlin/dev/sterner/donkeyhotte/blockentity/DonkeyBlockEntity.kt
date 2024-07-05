@@ -12,7 +12,11 @@ import net.minecraft.world.phys.BlockHitResult
 abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState) : BlockEntity(blockEntityType,
     blockPos, blockState
 ) {
-    abstract fun tick(world: Level, pos: BlockPos, state: BlockState)
+    fun tick(world: Level, pos: BlockPos, state: BlockState) {
 
-    abstract fun onUse(player: Player?, hand: BlockHitResult): InteractionResult
+    }
+
+    fun onUse(player: Player?, hand: BlockHitResult): InteractionResult {
+        return InteractionResult.PASS
+    }
 }

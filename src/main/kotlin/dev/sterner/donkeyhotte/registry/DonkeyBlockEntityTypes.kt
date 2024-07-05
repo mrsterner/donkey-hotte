@@ -2,8 +2,6 @@ package dev.sterner.donkeyhotte.registry
 
 import dev.sterner.donkeyhotte.Donkeyhotte
 import dev.sterner.donkeyhotte.blockentity.GrindstoneBlockEntity
-import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityType
-import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntity

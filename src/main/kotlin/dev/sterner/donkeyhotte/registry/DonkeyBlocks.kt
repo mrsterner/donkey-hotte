@@ -2,7 +2,6 @@ package dev.sterner.donkeyhotte.registry
 
 import dev.sterner.donkeyhotte.Donkeyhotte
 import dev.sterner.donkeyhotte.block.GrindstoneBlock
-import dev.sterner.donkeyhotte.blockentity.DonkeyBlockEntity
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.BlockItem
@@ -16,7 +15,7 @@ import java.util.function.Supplier
 object DonkeyBlocks {
 
     val GRINDSTONE_BLOCK = register("grindstone_block", {
-        GrindstoneBlock(Properties.ofFullCopy(Blocks.STONE), DonkeyBlockEntityTypes.GRINDSTONE_BLOCK_ENTITY)
+        GrindstoneBlock(Properties.ofFullCopy(Blocks.STONE))
     }, true)
 
     private fun <T : Block> register(name: String, block: Supplier<T>, createItem: Boolean): T {
