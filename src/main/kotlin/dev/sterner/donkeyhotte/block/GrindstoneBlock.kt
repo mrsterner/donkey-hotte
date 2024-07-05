@@ -9,6 +9,6 @@ import net.minecraft.world.level.block.state.BlockState
 class GrindstoneBlock(properties: Properties) : DonkeyEntityBlock<GrindstoneBlockEntity>(properties) {
 
     override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity? {
-        return DonkeyBlockEntityTypes.GRINDSTONE_BLOCK_ENTITY.create(blockPos, blockState)
+        return DonkeyBlockEntityTypes.GRINDSTONE_BLOCK_ENTITY.get().create(blockPos, blockState)
     }
 }
