@@ -26,4 +26,8 @@ class GrindstoneRecipe(ingredient: Ingredient, output: ItemStackWithChance, extr
     override fun getType(): RecipeType<*> {
         return DonkeyRecipeTypes.GRINDSTONE_RECIPE_TYPE.get()
     }
+
+    fun create(ingredient: Ingredient?, itemStackWithChance: ItemStackWithChance?, itemStackWithChance1: ItemStackWithChance?, i: Int): DonkeyProcessingRecipe {
+        return GrindstoneRecipe(ingredient!!, itemStackWithChance!!, itemStackWithChance1!!, i)
+    }
 }
