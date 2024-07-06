@@ -1,17 +1,10 @@
 package dev.sterner.donkeyhotte.recipe
 
-import com.mojang.serialization.MapCodec
 import dev.sterner.donkeyhotte.api.recipe.DonkeyProcessingRecipe
 import dev.sterner.donkeyhotte.api.recipe.ItemStackWithChance
 import dev.sterner.donkeyhotte.registry.DonkeyRecipeSerializers
 import dev.sterner.donkeyhotte.registry.DonkeyRecipeTypes
-import net.minecraft.core.HolderLookup
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.StreamCodec
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
-import net.minecraft.world.level.Level
 
 class GrindstoneRecipe(ingredient: Ingredient, output: ItemStackWithChance, extraOutput: ItemStackWithChance, processingTime: Int) : DonkeyProcessingRecipe(ingredient, output, extraOutput, processingTime) {
 
