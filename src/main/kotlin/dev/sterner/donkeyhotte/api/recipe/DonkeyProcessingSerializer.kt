@@ -11,7 +11,18 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 
 open class DonkeyProcessingSerializer<T : DonkeyProcessingRecipe>(private val factory: Factory<T>) : RecipeSerializer<T> {
 
-    private val codec: MapCodec<T> = RecordCodecBuilder.mapCodec { instance ->
+    val strictSingleItemChanceCodec: Codec<Pair<ItemStack, Float>> = Codec.lazyInitialized {
+        RecordCodecBuilder.create { instance ->
+            instance.group(
+                ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("item").forGetter { it.first },
+                Codec.FLOAT.fieldOf("chance").forGetter { it.second }
+            ).apply(instance) { itemStack, floatValue ->
+                itemStack to floatValue
+            }
+        }
+    }
+
+    private val processingCodec: MapCodec<T> = RecordCodecBuilder.mapCodec { instance ->
         instance.group(
             Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter { it.ingredient },
             ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("result").forGetter { it.output },
@@ -20,7 +31,7 @@ open class DonkeyProcessingSerializer<T : DonkeyProcessingRecipe>(private val fa
         ).apply(instance, factory::create)
     }
 
-    private val streamCodec: StreamCodec<RegistryFriendlyByteBuf, T> = StreamCodec.of(this::toNetwork, this::fromNetwork)
+    private val streamCodec: StreamCodec<RegistryFriendlyByteBuf, T> = StreamCodec.of(::toNetwork, ::fromNetwork)
 
     private fun fromNetwork(registryFriendlyByteBuf: RegistryFriendlyByteBuf): T {
         val inputIngredient = Ingredient.CONTENTS_STREAM_CODEC.decode(registryFriendlyByteBuf)
@@ -40,7 +51,7 @@ open class DonkeyProcessingSerializer<T : DonkeyProcessingRecipe>(private val fa
 
 
     override fun codec(): MapCodec<T> {
-        return codec
+        return processingCodec
     }
 
     override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, T> {
