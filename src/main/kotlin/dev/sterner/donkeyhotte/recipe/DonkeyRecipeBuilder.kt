@@ -62,7 +62,7 @@ class DonkeyRecipeBuilder<T : DonkeyProcessingRecipe>(
     }
 
     override fun save(recipeOutput: RecipeOutput, id: ResourceLocation) {
-        ensureValid(id)
+        //ensureValid(id)
         val builder = recipeOutput.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
             .rewards(AdvancementRewards.Builder.recipe(id))
