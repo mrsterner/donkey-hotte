@@ -42,10 +42,12 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
 
         if (output.chance > 0) {
             processingTime++
+            println("ProcessTime: $processingTime")
             if (processingTime >= targetProcessingTime) {
                 processingTime = 0
 
                 if (recipe.matches(SingleRecipeInput(items[0]), level)) {
+                    println("Matched")
                     items[0].shrink(recipe.ingredient.items[0].count)
 
                     if (level.random.nextFloat() < recipe.output.chance) {

@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
@@ -44,9 +45,14 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
         if (refreshRecipe && recipe == null) {
             recipe = checkForRecipe(level, this)
         }
+        /*
+        testcode
+         */
+        connectedEntity = EntityType.DONKEY.create(level)
 
         if (connectedEntity != null && recipe != null) {
             process(level, pos, state, connectedEntity!!, recipe!!)
+            println("Process")
         }
         if (connectedEntity == null || recipe == null) {
             processingTime = 0
