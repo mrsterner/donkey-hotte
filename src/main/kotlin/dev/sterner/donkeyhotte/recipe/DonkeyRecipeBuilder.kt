@@ -31,8 +31,19 @@ class DonkeyRecipeBuilder<T : DonkeyProcessingRecipe>(
             extra: ItemStackWithChance,
             processingTime: Int
         ): DonkeyRecipeBuilder<GrindstoneRecipe> {
-            return DonkeyRecipeBuilder(ingredient, result, extra, processingTime) { ingredient, result, extra, processingTime ->
-                GrindstoneRecipe(ingredient!!, result!!, extra!!, processingTime)
+            return DonkeyRecipeBuilder(ingredient, result, extra, processingTime) { ingredient2, result2, extra2, processingTime2 ->
+                GrindstoneRecipe(ingredient2!!, result2!!, extra2!!, processingTime2)
+            }
+        }
+
+        fun chopper(
+            ingredient: Ingredient,
+            result: ItemStackWithChance,
+            extra: ItemStackWithChance,
+            processingTime: Int
+        ): DonkeyRecipeBuilder<ChopperRecipe> {
+            return DonkeyRecipeBuilder(ingredient, result, extra, processingTime) { ingredient2, result2, extra2, processingTime2 ->
+                ChopperRecipe(ingredient2!!, result2!!, extra2!!, processingTime2)
             }
         }
     }
