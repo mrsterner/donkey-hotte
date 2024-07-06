@@ -36,9 +36,9 @@ abstract class DonkeyEntityBlock<T : DonkeyBlockEntity>(properties: Properties) 
         blockState: BlockState,
         blockEntityType: BlockEntityType<T>
     ): BlockEntityTicker<T> {
-        return BlockEntityTicker { tickerWorld, pos, tickerState, blockEntity ->
+        return BlockEntityTicker { tickerLevel, pos, tickerState, blockEntity ->
             if (blockEntity is DonkeyBlockEntity) {
-                (blockEntity as DonkeyBlockEntity).tick(tickerWorld, pos, tickerState)
+                (blockEntity as DonkeyBlockEntity).tick(tickerLevel, pos, tickerState)
             }
         }
     }

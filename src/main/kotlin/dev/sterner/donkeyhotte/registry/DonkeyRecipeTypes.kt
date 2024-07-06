@@ -7,7 +7,6 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeType
 
-
 object DonkeyRecipeTypes {
     val RECIPE_TYPES = LazyRegistrar.create(BuiltInRegistries.RECIPE_TYPE, Donkeyhotte.MOD_ID)
 

@@ -16,8 +16,4 @@ object DonkeyItems {
     val CHOPPER = ITEMS.register("chopper") {
         BlockItem(DonkeyBlocks.CHOPPER_BLOCK.get(), Item.Properties())
     }
-
-    fun init(){
-
-    }
 }
