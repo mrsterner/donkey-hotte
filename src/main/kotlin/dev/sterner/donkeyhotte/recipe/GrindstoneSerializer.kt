@@ -24,7 +24,7 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         val inputIngredient = Ingredient.CONTENTS_STREAM_CODEC.decode(registryFriendlyByteBuf)
         val outputStack = ItemStack.STREAM_CODEC.decode(registryFriendlyByteBuf)
         val extraOutputStack = ItemStack.STREAM_CODEC.decode(registryFriendlyByteBuf)
-        return factory.create( inputIngredient, outputStack, extraOutputStack)
+        return factory.create(inputIngredient, outputStack, extraOutputStack)
     }
 
 
@@ -43,7 +43,7 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         return streamCodec
     }
 
-    interface Factory<T : GrindstoneRecipe> {
+    fun interface Factory<T : GrindstoneRecipe> {
         fun create(
             ingredient: Ingredient?,
             output: ItemStack?,
