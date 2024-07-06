@@ -10,7 +10,6 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.PathfinderMob
-import net.minecraft.world.entity.animal.Animal
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -30,6 +29,7 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
 
     var genericTicker: Int = 0
     var initialized: Boolean = false
+    var refreshRecipe: Boolean = false
 
     var connectedEntity: PathfinderMob? = null
 
@@ -37,8 +37,12 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
         if (!initialized) {
             initialized = true
             if (recipe == null) {
-                recipe = checkForRecipe(level)
+                recipe = checkForRecipe(level, this)
             }
+        }
+
+        if (refreshRecipe && recipe == null) {
+            recipe = checkForRecipe(level, this)
         }
 
         if (connectedEntity != null && recipe != null) {
@@ -48,7 +52,7 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
 
     abstract fun process(level: Level, pos: BlockPos, state: BlockState, connectedEntity: PathfinderMob, recipe: DonkeyProcessingRecipe)
 
-    abstract fun checkForRecipe(level: Level): DonkeyProcessingRecipe?
+    abstract fun checkForRecipe(level: Level, donkeyBlockEntity: DonkeyBlockEntity): DonkeyProcessingRecipe?
 
     fun onUse(player: Player?, hand: BlockHitResult): InteractionResult {
         return InteractionResult.PASS
