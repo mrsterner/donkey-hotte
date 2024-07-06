@@ -14,7 +14,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.Ingredient
 import org.jetbrains.annotations.Nullable
 
-class DonkeyRecipeBuilderV2<T : DonkeyProcessingRecipe>(
+class DonkeyRecipeBuilder<T : DonkeyProcessingRecipe>(
     private val ingredient: Ingredient,
     private val result: ItemStackWithChance,
     private val extra: ItemStackWithChance,
@@ -30,17 +30,19 @@ class DonkeyRecipeBuilderV2<T : DonkeyProcessingRecipe>(
             result: ItemStackWithChance,
             extra: ItemStackWithChance,
             processingTime: Int
-        ): DonkeyRecipeBuilderV2<GrindstoneRecipe> {
-            return DonkeyRecipeBuilderV2(ingredient, result, extra, processingTime, GrindstoneRecipe::create)
+        ): DonkeyRecipeBuilder<GrindstoneRecipe> {
+            return DonkeyRecipeBuilder(ingredient, result, extra, processingTime) { ingredient, result, extra, processingTime ->
+                GrindstoneRecipe(ingredient!!, result!!, extra!!, processingTime)
+            }
         }
     }
 
-    override fun unlockedBy(name: String, criterion: Criterion<*>): DonkeyRecipeBuilderV2<T> {
+    override fun unlockedBy(name: String, criterion: Criterion<*>): DonkeyRecipeBuilder<T> {
         this.criteria[name] = criterion
         return this
     }
 
-    override fun group(@Nullable groupName: String?): DonkeyRecipeBuilderV2<T> {
+    override fun group(@Nullable groupName: String?): DonkeyRecipeBuilder<T> {
         return this
     }
 

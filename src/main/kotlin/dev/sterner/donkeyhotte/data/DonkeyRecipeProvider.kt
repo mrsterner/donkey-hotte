@@ -1,7 +1,6 @@
 package dev.sterner.donkeyhotte.data
 
 import dev.sterner.donkeyhotte.api.recipe.ItemStackWithChance
-import dev.sterner.donkeyhotte.registry.DonkeyRecipeBuilderV2
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.core.HolderLookup
