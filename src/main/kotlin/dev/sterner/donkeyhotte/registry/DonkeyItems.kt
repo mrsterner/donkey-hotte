@@ -13,6 +13,10 @@ object DonkeyItems {
         BlockItem(DonkeyBlocks.GRINDSTONE_BLOCK.get(), Item.Properties())
     }
 
+    val CHOPPER = ITEMS.register("chopper") {
+        BlockItem(DonkeyBlocks.CHOPPER_BLOCK.get(), Item.Properties())
+    }
+
     fun init(){
 
     }
