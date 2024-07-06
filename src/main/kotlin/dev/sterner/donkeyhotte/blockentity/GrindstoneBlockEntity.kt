@@ -30,6 +30,11 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
         items = nonNullList!!
     }
 
+    override fun tick(level: Level, pos: BlockPos, state: BlockState) {
+        super.tick(level, pos, state)
+        println(items[0])
+    }
+
     override fun process(
         level: Level,
         pos: BlockPos,
@@ -67,12 +72,14 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
     override fun checkForRecipe(level: Level, donkeyBlockEntity: DonkeyBlockEntity): DonkeyProcessingRecipe? {
         val recipes = level.recipeManager.getAllRecipesFor(DonkeyRecipeTypes.GRINDSTONE_RECIPE_TYPE.get())
         val foundRecipe = recipes.stream().filter { it.value.matches(SingleRecipeInput(this.items[0]), level) }.findFirst().orElse(null)
+        //recipes.forEach { recipeHolder -> println(recipeHolder.value.ingredient) }
+        println("AmountOfRecipes: ${recipes.size}")
+        //println("Recipe: $foundRecipe")
         if (foundRecipe != null) {
-            donkeyBlockEntity.recipe = foundRecipe.value
             donkeyBlockEntity.setChanged()
+            return  foundRecipe.value
         }
-
-        TODO("Not yet implemented")
+        return null
     }
 
     override fun getSlotsForFace(side: Direction): IntArray {

@@ -18,7 +18,7 @@ object DonkeyRecipeTypes {
         registerRecipeType<ChopperRecipe>(ChopperRecipe.NAME)
     }
 
-    fun <T : Recipe<*>> registerRecipeType(identifier: String): RecipeType<T> {
+    private fun <T : Recipe<*>> registerRecipeType(identifier: String): RecipeType<T> {
         return object : RecipeType<T> {
             override fun toString(): String {
                 return Donkeyhotte.MOD_ID + ":" + identifier

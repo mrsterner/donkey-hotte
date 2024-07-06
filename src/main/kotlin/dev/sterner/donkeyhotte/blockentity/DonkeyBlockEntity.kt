@@ -34,7 +34,7 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
 
     var connectedEntity: PathfinderMob? = null
 
-    fun tick(level: Level, pos: BlockPos, state: BlockState) {
+    open fun tick(level: Level, pos: BlockPos, state: BlockState) {
         if (!initialized) {
             initialized = true
             if (recipe == null) {
@@ -44,11 +44,19 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
 
         if (refreshRecipe && recipe == null) {
             recipe = checkForRecipe(level, this)
+            refreshRecipe = false
         }
         /*
         testcode
          */
         connectedEntity = EntityType.DONKEY.create(level)
+        if (genericTicker < 20) {
+            genericTicker++
+            refreshRecipe = true
+            //println("Refresh")
+        } else {
+            genericTicker = 0
+        }
 
         if (connectedEntity != null && recipe != null) {
             process(level, pos, state, connectedEntity!!, recipe!!)

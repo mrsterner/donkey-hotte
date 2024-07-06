@@ -1,0 +1,23 @@
+{
+  "type": "donkeyhotte:grindstone",
+  "ingredient": {
+    "item": "minecraft:iron_ore"
+  },
+  "result": {
+    "item": {
+      "id": "minecraft:iron_ingot",
+      "count": 1,
+      "components": {}
+    },
+    "chance": 0.9
+  },
+  "extra": {
+    "item": {
+      "id": "minecraft:gold_nugget",
+      "count": 1,
+      "components": {}
+    },
+    "chance": 0.1
+  },
+  "processingTime": 200
+}
