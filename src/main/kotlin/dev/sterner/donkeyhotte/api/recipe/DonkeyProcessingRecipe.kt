@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
-abstract class DonkeyProcessingRecipe(val ingredient: Ingredient, val output: ItemStack, val extraOutput: ItemStack, val processingTime: Int) :
+abstract class DonkeyProcessingRecipe(val ingredient: Ingredient, val output: ItemStackWithChance, val extraOutput: ItemStackWithChance, val processingTime: Int) :
     Recipe<SingleRecipeInput> {
 
     override fun matches(recipeInput: SingleRecipeInput, level: Level): Boolean {
@@ -13,7 +13,7 @@ abstract class DonkeyProcessingRecipe(val ingredient: Ingredient, val output: It
     }
 
     override fun assemble(recipeInput: SingleRecipeInput, provider: HolderLookup.Provider): ItemStack {
-        return this.output.copy()
+        return this.output.stack.copy()
     }
 
     override fun canCraftInDimensions(i: Int, j: Int): Boolean {
@@ -21,6 +21,6 @@ abstract class DonkeyProcessingRecipe(val ingredient: Ingredient, val output: It
     }
 
     override fun getResultItem(provider: HolderLookup.Provider): ItemStack {
-        return this.output
+        return this.output.stack
     }
 }
