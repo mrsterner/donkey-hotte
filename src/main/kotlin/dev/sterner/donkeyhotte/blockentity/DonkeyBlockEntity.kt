@@ -27,10 +27,18 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
     var angle: Double = 0.0
 
     var genericCooldown: Int = 0
+    var initialized: Boolean = false
 
     fun tick(level: Level, pos: BlockPos, state: BlockState) {
-
+        if (!initialized) {
+            initialized = true
+            if (recipe == null) {
+                recipe = checkForRecipe(level)
+            }
+        }
     }
+
+    abstract fun checkForRecipe(level: Level): DonkeyProcessingRecipe?
 
     fun onUse(player: Player?, hand: BlockHitResult): InteractionResult {
         return InteractionResult.PASS
