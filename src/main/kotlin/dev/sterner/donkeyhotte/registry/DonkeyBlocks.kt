@@ -1,6 +1,7 @@
 package dev.sterner.donkeyhotte.registry
 
 import dev.sterner.donkeyhotte.Donkeyhotte
+import dev.sterner.donkeyhotte.block.ChopperBlock
 import dev.sterner.donkeyhotte.block.GrindstoneBlock
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
@@ -18,39 +19,25 @@ import java.util.function.Supplier
 
 object DonkeyBlocks {
 
-    val BLOCKS: MutableMap<Supplier<Block>, ResourceLocation> = mutableMapOf()
-    val ITEMS: MutableMap<Supplier<Item>, ResourceLocation> = mutableMapOf()
+    val BLOCKS = LazyRegistrar.create(BuiltInRegistries.BLOCK, Donkeyhotte.MOD_ID)
 
-    val GRINDSTONE_BLOCK = register("grindstone_block", { GrindstoneBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)) }, true)
-
-    private fun <T : Block> register(name: String, blockSupplier: Supplier<T>, createItem: Boolean): Supplier<T> {
-        BLOCKS[blockSupplier as Supplier<Block>] = Donkeyhotte.id(name)
-        if (createItem) {
-            val itemSupplier = Supplier { BlockItem(blockSupplier.get(), Item.Properties()) }
-            ITEMS[itemSupplier as Supplier<Item>] = BLOCKS[blockSupplier]!!
-        }
-        return blockSupplier
+    val GRINDSTONE_BLOCK = BLOCKS.register("grindstone_block") {
+        GrindstoneBlock(
+            Properties.ofFullCopy(
+                Blocks.STONE
+            )
+        )
     }
 
-    private fun <T : Item> register(name: String, itemSupplier: Supplier<T>): Supplier<T> {
-        ITEMS[itemSupplier as Supplier<Item>] = Donkeyhotte.id(name)
-        return itemSupplier
+    val CHOPPER_BLOCK = BLOCKS.register("chopper_block") {
+        ChopperBlock(
+            Properties.ofFullCopy(
+                Blocks.STONE
+            )
+        )
     }
 
     fun init(){
-        BLOCKS.keys.forEach(Consumer { blockSupplier: Supplier<Block> ->
-            Registry.register(
-                BuiltInRegistries.BLOCK,
-                BLOCKS[blockSupplier]!!,
-                blockSupplier.get()
-            )
-        })
-        ITEMS.keys.forEach(Consumer { itemSupplier: Supplier<Item> ->
-            Registry.register(
-                BuiltInRegistries.ITEM,
-                ITEMS[itemSupplier]!!,
-                itemSupplier.get()
-            )
-        })
+
     }
 }
