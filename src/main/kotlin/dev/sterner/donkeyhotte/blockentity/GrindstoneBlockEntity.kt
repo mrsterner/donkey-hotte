@@ -7,6 +7,7 @@ import dev.sterner.donkeyhotte.registry.DonkeyRecipeTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.NonNullList
+import net.minecraft.world.Containers
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.SingleRecipeInput
@@ -45,7 +46,25 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
             if (processingTime >= targetProcessingTime) {
                 processingTime = 0
 
+                if (recipe.matches(SingleRecipeInput(items[0]), level)) {
+                    val stack = items[0]
+                    stack.shrink(recipe.ingredient.items[0].count)
+                    items.removeAt(0)
+                    items[0] = stack
 
+                    if (level.random.nextFloat() < recipe.output.chance) {
+                        Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.output.stack)
+                    }
+                    if (level.random.nextFloat() < recipe.extraOutput.chance) {
+                        Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.extraOutput.stack)
+                    }
+                }
+
+
+
+
+                refreshRecipe = true
+                setChanged()
             }
         }
     }
