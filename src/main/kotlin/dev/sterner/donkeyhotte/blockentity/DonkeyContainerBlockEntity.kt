@@ -85,14 +85,10 @@ abstract class DonkeyContainerBlockEntity(blockEntityType: BlockEntityType<*>, b
     }
 
     override fun canPlaceItemThroughFace(index: Int, itemStack: ItemStack, direction: Direction?): Boolean {
-        return true
+        return direction != Direction.DOWN
     }
 
     override fun canTakeItemThroughFace(index: Int, stack: ItemStack, direction: Direction): Boolean {
-        return true
-    }
-
-    override fun getSlotsForFace(side: Direction): IntArray {
-        return IntStream.range(0, containerSize).toArray();
+        return direction == Direction.DOWN
     }
 }

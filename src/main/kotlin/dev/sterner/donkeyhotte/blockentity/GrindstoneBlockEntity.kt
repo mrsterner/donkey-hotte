@@ -10,11 +10,14 @@ import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
+import java.util.stream.IntStream
 
 class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
 ) : DonkeyContainerBlockEntity(DonkeyBlockEntityTypes.GRINDSTONE_BLOCK_ENTITY.get(), blockPos, blockState) {
 
     private var items: NonNullList<ItemStack> = NonNullList.withSize(4, ItemStack.EMPTY)
+    private var inputSlot: IntArray = IntStream.range(0, 1).toArray()
+    private var outputSlot: IntArray = IntStream.range(2, 3).toArray()
 
     override fun getItems(): NonNullList<ItemStack> {
         return items
@@ -45,5 +48,9 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
 
     override fun checkForRecipe(level: Level, donkeyBlockEntity: DonkeyBlockEntity): DonkeyProcessingRecipe? {
         TODO("Not yet implemented")
+    }
+
+    override fun getSlotsForFace(side: Direction): IntArray {
+        return if (side == Direction.DOWN) outputSlot; else inputSlot
     }
 }
