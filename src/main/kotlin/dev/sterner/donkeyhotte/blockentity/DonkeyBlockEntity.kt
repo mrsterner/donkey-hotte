@@ -9,6 +9,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.PathfinderMob
+import net.minecraft.world.entity.animal.Animal
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -29,6 +31,8 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
     var genericTicker: Int = 0
     var initialized: Boolean = false
 
+    var connectedEntity: PathfinderMob? = null
+
     fun tick(level: Level, pos: BlockPos, state: BlockState) {
         if (!initialized) {
             initialized = true
@@ -36,7 +40,13 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
                 recipe = checkForRecipe(level)
             }
         }
+
+        if (connectedEntity != null && recipe != null) {
+            process(level, pos, state, connectedEntity!!, recipe!!)
+        }
     }
+
+    abstract fun process(level: Level, pos: BlockPos, state: BlockState, connectedEntity: PathfinderMob, recipe: DonkeyProcessingRecipe)
 
     abstract fun checkForRecipe(level: Level): DonkeyProcessingRecipe?
 
