@@ -3,11 +3,13 @@ package dev.sterner.donkeyhotte.blockentity
 import dev.sterner.donkeyhotte.api.recipe.DonkeyProcessingRecipe
 import dev.sterner.donkeyhotte.api.recipe.ItemStackWithChance
 import dev.sterner.donkeyhotte.registry.DonkeyBlockEntityTypes
+import dev.sterner.donkeyhotte.registry.DonkeyRecipeTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.NonNullList
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.SingleRecipeInput
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import java.util.stream.IntStream
@@ -37,16 +39,25 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
         val targetProcessingTime = recipe.processingTime
         val output: ItemStackWithChance = recipe.output
         val extra: ItemStackWithChance = recipe.extraOutput
+
         if (output.chance > 0) {
             processingTime++
             if (processingTime >= targetProcessingTime) {
                 processingTime = 0
+
 
             }
         }
     }
 
     override fun checkForRecipe(level: Level, donkeyBlockEntity: DonkeyBlockEntity): DonkeyProcessingRecipe? {
+        val recipes = level.recipeManager.getAllRecipesFor(DonkeyRecipeTypes.GRINDSTONE_RECIPE_TYPE.get())
+        val foundRecipe = recipes.stream().filter { it.value.matches(SingleRecipeInput(this.items[0]), level) }.findFirst().orElse(null)
+        if (foundRecipe != null) {
+            donkeyBlockEntity.recipe = foundRecipe.value
+            donkeyBlockEntity.setChanged()
+        }
+
         TODO("Not yet implemented")
     }
 

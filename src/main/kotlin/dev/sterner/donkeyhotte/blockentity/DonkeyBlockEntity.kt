@@ -48,6 +48,9 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
         if (connectedEntity != null && recipe != null) {
             process(level, pos, state, connectedEntity!!, recipe!!)
         }
+        if (connectedEntity == null || recipe == null) {
+            processingTime = 0
+        }
     }
 
     abstract fun process(level: Level, pos: BlockPos, state: BlockState, connectedEntity: PathfinderMob, recipe: DonkeyProcessingRecipe)
