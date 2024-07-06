@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
-class GrindstoneRecipe(val id: ResourceLocation, val ingredient: Ingredient, val output: ItemStack, val extraOutput: ItemStack) : Recipe<SingleRecipeInput> {
+class GrindstoneRecipe(val ingredient: Ingredient, val output: ItemStack, val extraOutput: ItemStack) : Recipe<SingleRecipeInput> {
 
     companion object {
         const val NAME: String = "grindstone"

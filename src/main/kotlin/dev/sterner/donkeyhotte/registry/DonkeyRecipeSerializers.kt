@@ -14,8 +14,7 @@ object DonkeyRecipeSerializers {
 
     val GRINDSTONE_SERIALIZER = RECIPE_SERIALIZERS.register(GrindstoneRecipe.NAME) {
         GrindstoneSerializer { ingredient, output, extraOutput ->
-            val id = determineResourceLocation()
-            GrindstoneRecipe(id, ingredient!!, output!!, extraOutput!!)
+            GrindstoneRecipe(ingredient!!, output!!, extraOutput!!)
         }
     }
 }
