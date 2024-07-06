@@ -39,7 +39,6 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
     ) {
         val targetProcessingTime = recipe.processingTime
         val output: ItemStackWithChance = recipe.output
-        val extra: ItemStackWithChance = recipe.extraOutput
 
         if (output.chance > 0) {
             processingTime++
@@ -47,10 +46,7 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
                 processingTime = 0
 
                 if (recipe.matches(SingleRecipeInput(items[0]), level)) {
-                    val stack = items[0]
-                    stack.shrink(recipe.ingredient.items[0].count)
-                    items.removeAt(0)
-                    items[0] = stack
+                    items[0].shrink(recipe.ingredient.items[0].count)
 
                     if (level.random.nextFloat() < recipe.output.chance) {
                         Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.output.stack)
@@ -59,9 +55,6 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
                         Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.extraOutput.stack)
                     }
                 }
-
-
-
 
                 refreshRecipe = true
                 setChanged()
