@@ -1,5 +1,6 @@
 package dev.sterner.donkeyhotte.recipe
 
+import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -14,7 +15,8 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         instance.group(
             Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter { it.ingredient },
             ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("result").forGetter { it.output },
-            ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("extra").forGetter { it.extraOutput }
+            ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("extra").forGetter { it.extraOutput },
+            Codec.INT.fieldOf("processingTime").forGetter { it.processingTime }
         ).apply(instance, factory::create)
     }
 
@@ -24,7 +26,8 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         val inputIngredient = Ingredient.CONTENTS_STREAM_CODEC.decode(registryFriendlyByteBuf)
         val outputStack = ItemStack.STREAM_CODEC.decode(registryFriendlyByteBuf)
         val extraOutputStack = ItemStack.STREAM_CODEC.decode(registryFriendlyByteBuf)
-        return factory.create(inputIngredient, outputStack, extraOutputStack)
+        val processingTime = registryFriendlyByteBuf.readVarInt()
+        return factory.create(inputIngredient, outputStack, extraOutputStack, processingTime)
     }
 
 
@@ -32,6 +35,7 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         Ingredient.CONTENTS_STREAM_CODEC.encode(registryFriendlyByteBuf, grindstoneRecipe.ingredient)
         ItemStack.STREAM_CODEC.encode(registryFriendlyByteBuf, grindstoneRecipe.output)
         ItemStack.STREAM_CODEC.encode(registryFriendlyByteBuf, grindstoneRecipe.extraOutput)
+        registryFriendlyByteBuf.writeVarInt(grindstoneRecipe.processingTime)
     }
 
 
@@ -47,7 +51,8 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         fun create(
             ingredient: Ingredient?,
             output: ItemStack?,
-            extraOutput: ItemStack?
+            extraOutput: ItemStack?,
+            processingTime: Int
         ): T
     }
 }

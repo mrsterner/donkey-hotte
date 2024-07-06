@@ -13,8 +13,8 @@ object DonkeyRecipeSerializers {
     val RECIPE_SERIALIZERS = LazyRegistrar.create(BuiltInRegistries.RECIPE_SERIALIZER, Donkeyhotte.MOD_ID)
 
     val GRINDSTONE_SERIALIZER = RECIPE_SERIALIZERS.register(GrindstoneRecipe.NAME) {
-        GrindstoneSerializer { ingredient, output, extraOutput ->
-            GrindstoneRecipe(ingredient!!, output!!, extraOutput!!)
+        GrindstoneSerializer { ingredient, output, extraOutput, processingTime ->
+            GrindstoneRecipe(ingredient!!, output!!, extraOutput!!, processingTime)
         }
     }
 }
