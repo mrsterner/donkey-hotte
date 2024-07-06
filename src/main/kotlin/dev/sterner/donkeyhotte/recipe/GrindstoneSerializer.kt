@@ -14,7 +14,7 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         instance.group(
             Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter { it.ingredient },
             ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("result").forGetter { it.output },
-            ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("result").forGetter { it.extraOutput }
+            ItemStack.STRICT_SINGLE_ITEM_CODEC.fieldOf("extra").forGetter { it.extraOutput }
         ).apply(instance, factory::create)
     }
 
