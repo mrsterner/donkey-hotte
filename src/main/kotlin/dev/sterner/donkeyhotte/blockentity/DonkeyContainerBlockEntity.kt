@@ -1,6 +1,7 @@
 package dev.sterner.donkeyhotte.blockentity
 
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
 import net.minecraft.nbt.CompoundTag
@@ -9,19 +10,20 @@ import net.minecraft.world.ContainerHelper
 import net.minecraft.world.WorldlyContainer
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.block.entity.BarrelBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import java.util.stream.IntStream
 
 abstract class DonkeyContainerBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState
 ) : DonkeyBlockEntity(blockEntityType, blockPos, blockState), Container, WorldlyContainer {
 
-
     protected abstract fun getItems(): NonNullList<ItemStack>
 
-    protected abstract fun setItems(nonNullList: NonNullList<ItemStack?>?)
+    protected abstract fun setItems(nonNullList: NonNullList<ItemStack>?)
 
     fun loadFromTag(compoundTag: CompoundTag, provider: HolderLookup.Provider) {
-        setItems(NonNullList.withSize<ItemStack>(this.containerSize, ItemStack.EMPTY))
+        setItems(NonNullList.withSize(this.containerSize, ItemStack.EMPTY))
         if (compoundTag.contains("Items", 9)) {
             ContainerHelper.loadAllItems(compoundTag, getItems(), provider)
         }
@@ -76,5 +78,21 @@ abstract class DonkeyContainerBlockEntity(blockEntityType: BlockEntityType<*>, b
 
     override fun clearContent() {
         getItems().clear()
+    }
+
+    override fun getContainerSize(): Int {
+        return getItems().size
+    }
+
+    override fun canPlaceItemThroughFace(index: Int, itemStack: ItemStack, direction: Direction?): Boolean {
+        return true
+    }
+
+    override fun canTakeItemThroughFace(index: Int, stack: ItemStack, direction: Direction): Boolean {
+        return true
+    }
+
+    override fun getSlotsForFace(side: Direction): IntArray {
+        return IntStream.range(0, containerSize).toArray();
     }
 }
