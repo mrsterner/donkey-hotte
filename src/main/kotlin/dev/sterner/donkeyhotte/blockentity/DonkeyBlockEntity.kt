@@ -26,7 +26,7 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
     var oldAngle: Double = 0.0
     var angle: Double = 0.0
 
-    var genericCooldown: Int = 0
+    var genericTicker: Int = 0
     var initialized: Boolean = false
 
     fun tick(level: Level, pos: BlockPos, state: BlockState) {
