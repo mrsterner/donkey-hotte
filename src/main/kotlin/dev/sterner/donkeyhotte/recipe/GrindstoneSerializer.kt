@@ -1,19 +1,12 @@
 package dev.sterner.donkeyhotte.recipe
 
-import com.mojang.datafixers.kinds.App
-import com.mojang.datafixers.util.Function6
-import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
-import net.minecraft.network.codec.StreamDecoder
-import net.minecraft.network.codec.StreamEncoder
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.CookingBookCategory
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
-import java.util.function.Function
 
 class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : RecipeSerializer<GrindstoneRecipe> {
 
@@ -25,12 +18,29 @@ class GrindstoneSerializer(private val factory: Factory<GrindstoneRecipe>) : Rec
         ).apply(instance, factory::create)
     }
 
+    private val streamCodec: StreamCodec<RegistryFriendlyByteBuf, GrindstoneRecipe> = StreamCodec.of(this::toNetwork, this::fromNetwork)
+
+    private fun fromNetwork(registryFriendlyByteBuf: RegistryFriendlyByteBuf): GrindstoneRecipe {
+        val inputIngredient = Ingredient.CONTENTS_STREAM_CODEC.decode(registryFriendlyByteBuf)
+        val outputStack = ItemStack.STREAM_CODEC.decode(registryFriendlyByteBuf)
+        val extraOutputStack = ItemStack.STREAM_CODEC.decode(registryFriendlyByteBuf)
+        return factory.create( inputIngredient, outputStack, extraOutputStack)
+    }
+
+
+    private fun toNetwork(registryFriendlyByteBuf: RegistryFriendlyByteBuf, grindstoneRecipe: GrindstoneRecipe) {
+        Ingredient.CONTENTS_STREAM_CODEC.encode(registryFriendlyByteBuf, grindstoneRecipe.ingredient)
+        ItemStack.STREAM_CODEC.encode(registryFriendlyByteBuf, grindstoneRecipe.output)
+        ItemStack.STREAM_CODEC.encode(registryFriendlyByteBuf, grindstoneRecipe.extraOutput)
+    }
+
+
     override fun codec(): MapCodec<GrindstoneRecipe> {
-        TODO("Not yet implemented")
+        return codec
     }
 
     override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, GrindstoneRecipe> {
-        TODO("Not yet implemented")
+        return streamCodec
     }
 
     interface Factory<T : GrindstoneRecipe> {
