@@ -1,12 +1,18 @@
 package dev.sterner.donkeyhotte.data
 
+import dev.sterner.donkeyhotte.recipe.DonkeyRecipeBuilder
+import dev.sterner.donkeyhotte.recipe.GrindstoneRecipe
+import dev.sterner.donkeyhotte.recipe.GrindstoneSerializer
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.data.recipes.SingleItemRecipeBuilder
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.Ingredient
 import java.util.concurrent.CompletableFuture
 
 class DonkeyRecipeProvider(output: FabricDataOutput?,
@@ -15,6 +21,25 @@ class DonkeyRecipeProvider(output: FabricDataOutput?,
 
     override fun buildRecipes(exporter: RecipeOutput) {
         //exporter.accept()
+
+        DonkeyRecipeBuilder(
+            Ingredient.of(Items.IRON_ORE),
+            Items.FISHING_ROD,
+            1,
+            1f,
+            Items.IRON_HOE,
+            1,
+            1f,
+            100
+        ) { ingredient, output, extraOutput, processingTime ->
+            GrindstoneRecipe(
+                ingredient!!,
+                output!!,
+                extraOutput!!,
+                processingTime
+            )
+        }.save(exporter)
+
 
         ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, Items.WARPED_FUNGUS_ON_A_STICK)
             .define('#', Items.FISHING_ROD)
