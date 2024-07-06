@@ -1,6 +1,7 @@
 package dev.sterner.donkeyhotte.registry
 
 import dev.sterner.donkeyhotte.Donkeyhotte
+import dev.sterner.donkeyhotte.recipe.ChopperRecipe
 import dev.sterner.donkeyhotte.recipe.GrindstoneRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.Recipe
@@ -12,6 +13,10 @@ object DonkeyRecipeTypes {
 
     val GRINDSTONE_RECIPE_TYPE = RECIPE_TYPES.register(GrindstoneRecipe.NAME) {
         registerRecipeType<GrindstoneRecipe>(GrindstoneRecipe.NAME)
+    }
+
+    val CHOPPER_RECIPE_TYPE = RECIPE_TYPES.register(ChopperRecipe.NAME) {
+        registerRecipeType<ChopperRecipe>(ChopperRecipe.NAME)
     }
 
     fun <T : Recipe<*>> registerRecipeType(identifier: String): RecipeType<T> {
