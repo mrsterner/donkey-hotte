@@ -20,7 +20,7 @@ class DonkeyRecipeProvider(output: FabricDataOutput?,
         DonkeyRecipeBuilder.grindstone(
             Ingredient.of(Items.IRON_ORE),
             ItemStackWithChance(ItemStack(Items.IRON_INGOT), 1f),
-            ItemStackWithChance(ItemStack(Items.IRON_INGOT), 1f),
+            ItemStackWithChance(ItemStack(Items.IRON_NUGGET), 0.1f),
             100
         ).save(exporter)
     }
