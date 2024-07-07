@@ -33,13 +33,18 @@ class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider
         rotateGrindstone(blockEntity, poseStack, partialTick)
         model?.renderToBuffer(poseStack, vertexConsumer, light, overlay)
         poseStack.popPose()
+
+        poseStack.pushPose()
+        poseStack.translate(0.5, -0.90, 0.5)
+        model?.renderToBuffer(poseStack, vertexConsumer, light, overlay)
+        poseStack.popPose()
     }
 
     private fun rotateGrindstone(blockEntity: GrindstoneBlockEntity, poseStack: PoseStack, partialTick: Float) {
 
         val angle = blockEntity.angle
         val oldAngle = blockEntity.oldAngle
-        val lerp = Mth.lerp(partialTick, angle.toFloat(), oldAngle.toFloat())
-        poseStack.mulPose(Quaternionf().rotateY(angle.toFloat()))
+        val lerp = Mth.lerp(partialTick, oldAngle.toFloat(), angle.toFloat())
+        poseStack.mulPose(Quaternionf().rotateY(lerp))
     }
 }
