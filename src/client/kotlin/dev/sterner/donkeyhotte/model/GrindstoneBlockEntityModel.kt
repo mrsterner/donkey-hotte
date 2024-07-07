@@ -35,6 +35,7 @@ class GrindstoneBlockEntityModel(root: ModelPart) : Model(RenderType::entitySoli
             val meshdefinition = MeshDefinition()
             val partdefinition = meshdefinition.root
 
+
             val wheel = partdefinition.addOrReplaceChild(
                 "wheel",
                 CubeListBuilder.create().texOffs(20, 34)
@@ -103,9 +104,10 @@ class GrindstoneBlockEntityModel(root: ModelPart) : Model(RenderType::entitySoli
                 "pole",
                 CubeListBuilder.create().texOffs(0, 56)
                     .addBox(-0.4f, -10.0f, -2.0f, 4.0f, 4.0f, 4.0f, CubeDeformation(0.0f))
-                    .texOffs(10, 58).addBox(-1.4f, -6.0f, -3.0f, 6.0f, 0.0f, 6.0f, CubeDeformation(0.0f)),
-                PartPose.offset(0.0f, 0.0f, 0.0f)
+                    .texOffs(10, 58).addBox(-1.4f, -10.0f, -3.0f, 6.0f, 0.0f, 6.0f, CubeDeformation(0.0f)),
+                PartPose.offset(0.0f, 10.0f, 0.0f)
             )
+
 
 
             return LayerDefinition.create(meshdefinition, 64, 64)

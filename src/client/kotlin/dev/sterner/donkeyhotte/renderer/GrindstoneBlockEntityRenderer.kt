@@ -35,7 +35,7 @@ class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider
         poseStack.popPose()
 
         poseStack.pushPose()
-        poseStack.translate(0.5, -(8/16.0), 0.5)
+        poseStack.translate(0.5, -(6/16.0), 0.5)
         model?.renderToBuffer(poseStack, vertexConsumer, light, overlay)
         poseStack.popPose()
     }
