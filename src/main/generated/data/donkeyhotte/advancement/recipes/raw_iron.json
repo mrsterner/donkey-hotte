@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:iron_ingot"
+        "recipe": "minecraft:raw_iron"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:iron_ingot"
+      "minecraft:raw_iron"
     ]
   }
 }
