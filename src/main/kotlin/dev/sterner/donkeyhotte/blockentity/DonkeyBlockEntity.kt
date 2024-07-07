@@ -42,7 +42,7 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
             }
         }
 
-        if (refreshRecipe && recipe == null) {
+        if (refreshRecipe) {
             recipe = checkForRecipe(level, this)
             refreshRecipe = false
         }
@@ -60,7 +60,6 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
 
         if (connectedEntity != null && recipe != null) {
             process(level, pos, state, connectedEntity!!, recipe!!)
-            println("Process")
         }
         if (connectedEntity == null || recipe == null) {
             processingTime = 0

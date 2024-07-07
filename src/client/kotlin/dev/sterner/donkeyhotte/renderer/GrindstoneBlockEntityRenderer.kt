@@ -26,7 +26,7 @@ class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider
         overlay: Int
     ) {
         poseStack.pushPose()
-        var vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutout(Donkeyhotte.id("textures/entity/grindstone_andesite.png")))
+        val vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutout(Donkeyhotte.id("textures/entity/grindstone_andesite.png")))
         model?.renderToBuffer(poseStack, vertexConsumer, light, overlay)
         poseStack.popPose()
     }

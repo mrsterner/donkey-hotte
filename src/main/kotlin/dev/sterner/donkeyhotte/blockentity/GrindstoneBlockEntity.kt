@@ -52,7 +52,6 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
                 processingTime = 0
 
                 if (recipe.matches(SingleRecipeInput(items[0]), level)) {
-                    println("Matched")
                     items[0].shrink(recipe.ingredient.items[0].count)
 
                     if (level.random.nextFloat() < recipe.output.chance) {
@@ -72,12 +71,9 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
     override fun checkForRecipe(level: Level, donkeyBlockEntity: DonkeyBlockEntity): DonkeyProcessingRecipe? {
         val recipes = level.recipeManager.getAllRecipesFor(DonkeyRecipeTypes.GRINDSTONE_RECIPE_TYPE.get())
         val foundRecipe = recipes.stream().filter { it.value.matches(SingleRecipeInput(this.items[0]), level) }.findFirst().orElse(null)
-        //recipes.forEach { recipeHolder -> println(recipeHolder.value.ingredient) }
-        println("AmountOfRecipes: ${recipes.size}")
-        //println("Recipe: $foundRecipe")
         if (foundRecipe != null) {
             donkeyBlockEntity.setChanged()
-            return  foundRecipe.value
+            return foundRecipe.value
         }
         return null
     }
@@ -85,4 +81,6 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
     override fun getSlotsForFace(side: Direction): IntArray {
         return if (side == Direction.DOWN) outputSlot; else inputSlot
     }
+
+
 }
