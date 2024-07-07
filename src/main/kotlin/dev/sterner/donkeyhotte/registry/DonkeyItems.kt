@@ -7,13 +7,13 @@ import net.minecraft.world.item.Item
 
 object DonkeyItems {
 
-    val ITEMS = LazyRegistrar.create(BuiltInRegistries.ITEM, Donkeyhotte.MOD_ID)
+    val ITEMS: LazyRegistrar<Item> = LazyRegistrar.create(BuiltInRegistries.ITEM, Donkeyhotte.MOD_ID)
 
-    val GRINDSONE = ITEMS.register("grindstone") {
+    val GRINDSONE: RegistryObject<BlockItem> = ITEMS.register("grindstone") {
         BlockItem(DonkeyBlocks.GRINDSTONE_BLOCK.get(), Item.Properties())
     }
 
-    val CHOPPER = ITEMS.register("chopper") {
+    val CHOPPER: RegistryObject<BlockItem> = ITEMS.register("chopper") {
         BlockItem(DonkeyBlocks.CHOPPER_BLOCK.get(), Item.Properties())
     }
 }

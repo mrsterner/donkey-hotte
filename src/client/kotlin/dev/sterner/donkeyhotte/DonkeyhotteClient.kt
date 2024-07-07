@@ -6,7 +6,6 @@ import dev.sterner.donkeyhotte.renderer.ChopperBlockEntityRenderer
 import dev.sterner.donkeyhotte.renderer.GrindstoneBlockEntityRenderer
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers
 
 object DonkeyhotteClient : ClientModInitializer {
