@@ -30,7 +30,15 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
         items = nonNullList!!
     }
 
+    override fun tick(level: Level, pos: BlockPos, state: BlockState) {
+        super.tick(level, pos, state)
+        oldAngle = angle
+        angle = (angle + 0.1) % 360
+        setChanged()
+    }
+
     override fun process(
+        be: DonkeyBlockEntity,
         level: Level,
         pos: BlockPos,
         state: BlockState,
@@ -56,7 +64,7 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
                         Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.extraOutput.stack)
                     }
                 }
-
+                be.recipe = null
                 refreshRecipe = true
                 setChanged()
             }

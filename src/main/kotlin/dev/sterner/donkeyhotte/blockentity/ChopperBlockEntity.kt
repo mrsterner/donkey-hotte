@@ -12,6 +12,7 @@ class ChopperBlockEntity(blockPos: BlockPos, blockState: BlockState) : DonkeyBlo
     blockPos, blockState
 ) {
     override fun process(
+        be: DonkeyBlockEntity,
         level: Level,
         pos: BlockPos,
         state: BlockState,
