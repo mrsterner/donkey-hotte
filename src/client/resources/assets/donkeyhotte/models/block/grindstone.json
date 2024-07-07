@@ -1,23 +1,6 @@
 {
-	"credit": "Made with Blockbench",
-	"texture_size": [64, 64],
+	"parent": "minecraft:block/air",
 	"textures": {
-		"2": "donkeyhotte:block/andesite_base",
-		"particle": "donkeyhotte:block/andesite_base"
-	},
-	"elements": [
-		{
-			"from": [-3, 0, -3],
-			"to": [19, 12, 19],
-			"rotation": {"angle": 0, "axis": "y", "origin": [-3, 0, -3]},
-			"faces": {
-				"north": {"uv": [6.25, 0, 11.75, 3], "texture": "#2"},
-				"east": {"uv": [6.25, 0, 11.75, 3], "texture": "#2"},
-				"south": {"uv": [6.25, 0, 11.75, 3], "texture": "#2"},
-				"west": {"uv": [6.25, 0, 11.75, 3], "texture": "#2"},
-				"up": {"uv": [5.75, 5.75, 0.25, 0.25], "texture": "#2"},
-				"down": {"uv": [5.75, 6.25, 0.25, 11.75], "texture": "#2"}
-			}
-		}
-	]
+		"particle": "minecraft:block/andesite"
+	}
 }

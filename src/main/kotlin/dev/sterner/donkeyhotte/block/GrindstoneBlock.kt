@@ -18,7 +18,7 @@ class GrindstoneBlock(properties: Properties) : DonkeyEntityBlock<GrindstoneBloc
     }
 
     override fun getRenderShape(state: BlockState): RenderShape {
-        return RenderShape.MODEL
+        return RenderShape.INVISIBLE
     }
 
     override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {

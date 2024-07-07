@@ -1,5 +1,7 @@
 package dev.sterner.donkeyhotte
 
+import dev.sterner.donkeyhotte.data.DonkeyLangProvider
+import dev.sterner.donkeyhotte.data.DonkeyLootTableProvider
 import dev.sterner.donkeyhotte.data.DonkeyModelProvider
 import dev.sterner.donkeyhotte.data.DonkeyRecipeProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
@@ -12,6 +14,8 @@ object DonkeyhotteDataGenerator : DataGeneratorEntrypoint {
 		pack.addProvider { output, re ->
 			DonkeyModelProvider(output)
 			DonkeyRecipeProvider(output, re)
+			DonkeyLangProvider(output, re)
+			DonkeyLootTableProvider(output, re)
 		}
 	}
 }
