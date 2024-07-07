@@ -9,7 +9,7 @@ object DonkeyItems {
 
     val ITEMS: LazyRegistrar<Item> = LazyRegistrar.create(BuiltInRegistries.ITEM, Donkeyhotte.MOD_ID)
 
-    val GRINDSONE: RegistryObject<BlockItem> = ITEMS.register("grindstone") {
+    val GRINDSTONE: RegistryObject<BlockItem> = ITEMS.register("grindstone") {
         BlockItem(DonkeyBlocks.GRINDSTONE_BLOCK.get(), Item.Properties())
     }
 

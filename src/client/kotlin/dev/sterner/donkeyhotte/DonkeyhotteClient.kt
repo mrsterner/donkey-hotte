@@ -18,7 +18,7 @@ object DonkeyhotteClient : ClientModInitializer {
 		BlockEntityRenderers.register(DonkeyBlockEntityTypes.GRINDSTONE_BLOCK_ENTITY.get(), ::GrindstoneBlockEntityRenderer)
 		BlockEntityRenderers.register(DonkeyBlockEntityTypes.CHOPPER_BLOCK_ENTITY.get(), ::ChopperBlockEntityRenderer)
 
-		BuiltinItemRendererRegistry.INSTANCE.register(DonkeyItems.GRINDSONE.get(), GrindstoneBlockEntityRenderer())
+		BuiltinItemRendererRegistry.INSTANCE.register(DonkeyItems.GRINDSTONE.get(), GrindstoneBlockEntityRenderer())
 
 
 	}

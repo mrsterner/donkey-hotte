@@ -1,6 +1,7 @@
 package dev.sterner.donkeyhotte.data
 
 import dev.sterner.donkeyhotte.registry.DonkeyBlocks
+import dev.sterner.donkeyhotte.registry.DonkeyItems
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.minecraft.core.HolderLookup
@@ -11,8 +12,8 @@ class DonkeyLootTableProvider(dataOutput: FabricDataOutput?,
 ) : FabricBlockLootTableProvider(dataOutput, registryLookup) {
 
     override fun generate() {
-        createSingleItemTable(DonkeyBlocks.GRINDSTONE_BLOCK.get())
-        createSingleItemTable(DonkeyBlocks.CHOPPER_BLOCK.get())
+        add(DonkeyBlocks.GRINDSTONE_BLOCK.get(), createSingleItemTable(DonkeyItems.GRINDSTONE.get()))
+        add(DonkeyBlocks.CHOPPER_BLOCK.get(), createSingleItemTable(DonkeyItems.CHOPPER.get()))
     }
 
 }
