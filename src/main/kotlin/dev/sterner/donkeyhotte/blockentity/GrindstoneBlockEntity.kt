@@ -63,7 +63,7 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
 
         if (output.chance > 0) {
             processingTime++
-
+            println("$processingTime : ${recipe.output.stack} : ${be.recipe?.ingredient}")
             if (processingTime >= targetProcessingTime) {
                 processingTime = 0
 
@@ -71,10 +71,10 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
                     items[0].shrink(recipe.ingredient.items[0].count)
 
                     if (level.random.nextFloat() < recipe.output.chance) {
-                        Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.output.stack)
+                        Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.output.stack.copy())
                     }
                     if (level.random.nextFloat() < recipe.extraOutput.chance) {
-                        Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.extraOutput.stack)
+                        Containers.dropItemStack(level, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), recipe.extraOutput.stack.copy())
                     }
                 }
                 be.recipe = null
