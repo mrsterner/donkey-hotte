@@ -11,12 +11,10 @@ import net.minecraft.core.Direction
 import net.minecraft.core.NonNullList
 import net.minecraft.core.particles.ItemParticleOption
 import net.minecraft.core.particles.ParticleTypes
-import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Containers
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.SingleRecipeInput
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
@@ -57,8 +55,7 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
         val targetProcessingTime = recipe.processingTime
         val output: ItemStackWithChance = recipe.output
         if (level is ServerLevel) {
-            val server = level as ServerLevel
-            spawnParticles(server, recipe.ingredient.items.get(0))
+            spawnParticles(level, recipe.ingredient.items[0])
         }
 
         if (output.chance > 0) {
