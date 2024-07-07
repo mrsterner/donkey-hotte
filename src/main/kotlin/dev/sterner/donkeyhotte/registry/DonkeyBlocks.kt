@@ -12,7 +12,7 @@ object DonkeyBlocks {
 
     val BLOCKS: LazyRegistrar<Block> = LazyRegistrar.create(BuiltInRegistries.BLOCK, Donkeyhotte.MOD_ID)
 
-    val GRINDSTONE_BLOCK: RegistryObject<GrindstoneBlock> = BLOCKS.register("grindstone_block") {
+    val GRINDSTONE_BLOCK: RegistryObject<GrindstoneBlock> = BLOCKS.register("grindstone") {
         GrindstoneBlock(
             Properties.ofFullCopy(
                 Blocks.STONE
@@ -21,7 +21,7 @@ object DonkeyBlocks {
         )
     }
 
-    val CHOPPER_BLOCK: RegistryObject<ChopperBlock> = BLOCKS.register("chopper_block") {
+    val CHOPPER_BLOCK: RegistryObject<ChopperBlock> = BLOCKS.register("chopper") {
         ChopperBlock(
             Properties.ofFullCopy(
                 Blocks.STONE

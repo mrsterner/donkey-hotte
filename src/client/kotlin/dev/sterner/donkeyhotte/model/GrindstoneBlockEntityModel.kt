@@ -3,7 +3,6 @@ package dev.sterner.donkeyhotte.model
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.sterner.donkeyhotte.Donkeyhotte
-import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.Model
 import net.minecraft.client.model.geom.ModelLayerLocation
 import net.minecraft.client.model.geom.ModelPart
@@ -12,39 +11,12 @@ import net.minecraft.client.model.geom.builders.CubeDeformation
 import net.minecraft.client.model.geom.builders.CubeListBuilder
 import net.minecraft.client.model.geom.builders.LayerDefinition
 import net.minecraft.client.model.geom.builders.MeshDefinition
-import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 
 
 class GrindstoneBlockEntityModel(root: ModelPart) : Model(RenderType::entitySolid) {
 
-    private var wheel: ModelPart? = null
-    /*
-    private var wheel2: ModelPart? = null
-    private var wheel3: ModelPart? = null
-    private var wheel4: ModelPart? = null
-    private var wheel5: ModelPart? = null
-    private var wheel6: ModelPart? = null
-    private var wheel7: ModelPart? = null
-    private var wheel8: ModelPart? = null
-    private var wheelface: ModelPart? = null
-
-     */
-
-    init {
-        wheel = root.getChild("wheel")
-        /*
-        wheel2 = root.getChild("wheel2")
-        wheel3 = root.getChild("wheel3")
-        wheel4 = root.getChild("wheel4")
-        wheel5 = root.getChild("wheel5")
-        wheel6 = root.getChild("wheel6")
-        wheel7 = root.getChild("wheel7")
-        wheel8 = root.getChild("wheel8")
-        wheelface = root.getChild("wheelface")
-
-         */
-    }
+    private var wheel: ModelPart = root.getChild("wheel")
 
     override fun renderToBuffer(
         poseStack: PoseStack,
@@ -53,7 +25,7 @@ class GrindstoneBlockEntityModel(root: ModelPart) : Model(RenderType::entitySoli
         packedOverlay: Int,
         color: Int
     ) {
-        wheel?.render(poseStack, buffer, packedLight, packedOverlay)
+        wheel.render(poseStack, buffer, packedLight, packedOverlay)
     }
 
     companion object {
@@ -122,10 +94,19 @@ class GrindstoneBlockEntityModel(root: ModelPart) : Model(RenderType::entitySoli
             val wheelface = wheel.addOrReplaceChild(
                 "wheelface",
                 CubeListBuilder.create().texOffs(0, 0)
-                    .addBox(-9.5f, 0.08f, -10.0f, 20.0f, 0.0f, 20.0f, CubeDeformation(0.01f))
-                    .texOffs(0, 0).addBox(-9.5f, 5.94f, -10.0f, 20.0f, 0.0f, 20.0f, CubeDeformation(0.01f)),
+                    .addBox(-9.5f, 0.08f, -10.0f, 20.0f, 0.0f, 20.0f, CubeDeformation(0.0f))
+                    .texOffs(0, 0).addBox(-9.5f, 5.94f, -10.0f, 20.0f, 0.0f, 20.0f, CubeDeformation(0.0f)),
                 PartPose.offset(1.6f, -6.0f, 0.0f)
             )
+
+            val pole = wheel.addOrReplaceChild(
+                "pole",
+                CubeListBuilder.create().texOffs(0, 56)
+                    .addBox(-0.4f, -10.0f, -2.0f, 4.0f, 4.0f, 4.0f, CubeDeformation(0.0f))
+                    .texOffs(10, 58).addBox(-1.4f, -6.0f, -3.0f, 6.0f, 0.0f, 6.0f, CubeDeformation(0.0f)),
+                PartPose.offset(0.0f, 0.0f, 0.0f)
+            )
+
 
             return LayerDefinition.create(meshdefinition, 64, 64)
         }

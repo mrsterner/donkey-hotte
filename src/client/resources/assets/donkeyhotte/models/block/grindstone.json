@@ -1,0 +1,22 @@
+{
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "donkeyhotte:block/andesite_base",
+		"particle": "donkeyhotte:block/andesite_base"
+	},
+	"elements": [
+		{
+			"from": [-4, 0, -4],
+			"to": [20, 12, 20],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-4, 0, -4]},
+			"faces": {
+				"north": {"uv": [6, 0, 12, 3], "texture": "#1"},
+				"east": {"uv": [6, 0, 12, 3], "texture": "#1"},
+				"south": {"uv": [6, 0, 12, 3], "texture": "#1"},
+				"west": {"uv": [6, 0, 12, 3], "texture": "#1"},
+				"up": {"uv": [6, 6, 0, 0], "texture": "#1"},
+				"down": {"uv": [6, 6, 0, 12], "texture": "#1"}
+			}
+		}
+	]
+}
