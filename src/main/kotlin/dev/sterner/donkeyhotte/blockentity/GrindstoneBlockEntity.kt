@@ -30,11 +30,6 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
         items = nonNullList!!
     }
 
-    override fun tick(level: Level, pos: BlockPos, state: BlockState) {
-        super.tick(level, pos, state)
-        println(items[0])
-    }
-
     override fun process(
         level: Level,
         pos: BlockPos,
