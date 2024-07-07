@@ -4,16 +4,25 @@ import dev.sterner.donkeyhotte.api.recipe.DonkeyProcessingRecipe
 import dev.sterner.donkeyhotte.api.recipe.ItemStackWithChance
 import dev.sterner.donkeyhotte.registry.DonkeyBlockEntityTypes
 import dev.sterner.donkeyhotte.registry.DonkeyRecipeTypes
+import dev.sterner.donkeyhotte.util.VecUtils
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.NonNullList
+import net.minecraft.core.particles.ItemParticleOption
+import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Containers
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.SingleRecipeInput
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.Vec3
 import java.util.stream.IntStream
+
 
 class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
 ) : DonkeyContainerBlockEntity(DonkeyBlockEntityTypes.GRINDSTONE_BLOCK_ENTITY.get(), blockPos, blockState) {
@@ -47,10 +56,14 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
     ) {
         val targetProcessingTime = recipe.processingTime
         val output: ItemStackWithChance = recipe.output
+        if (level is ServerLevel) {
+            val server = level as ServerLevel
+            spawnParticles(server, recipe.ingredient.items.get(0))
+        }
 
         if (output.chance > 0) {
             processingTime++
-            println("ProcessTime: $processingTime")
+
             if (processingTime >= targetProcessingTime) {
                 processingTime = 0
 
@@ -68,6 +81,24 @@ class GrindstoneBlockEntity(blockPos: BlockPos, blockState: BlockState
                 refreshRecipe = true
                 setChanged()
             }
+        }
+    }
+
+
+    fun spawnParticles(level: ServerLevel, stackInSlot: ItemStack) {
+        if (stackInSlot.isEmpty) return
+
+        val data = ItemParticleOption(ParticleTypes.ITEM, stackInSlot)
+        val angle = level.random.nextFloat() * 360
+        var offset = Vec3(0.0, 0.0, 0.5)
+        offset = VecUtils.rotate(offset, angle.toDouble(), Direction.Axis.Y)
+        var target: Vec3 = VecUtils.rotate(offset, 25.0, Direction.Axis.Y)
+
+        val center = offset.add(VecUtils.getCenterOf(worldPosition))
+        target = VecUtils.offsetRandomly(target.subtract(offset), level.random, 1 / 128f)
+
+        PlayerLookup.tracking(this).forEach {
+            level.sendParticles(it, data, false, center.x, center.y, center.z, 1, target.x, target.y, target.z, 0.0)
         }
     }
 

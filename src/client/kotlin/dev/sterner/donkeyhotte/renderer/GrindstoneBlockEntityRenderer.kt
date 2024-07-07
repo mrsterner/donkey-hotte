@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import org.joml.Quaternionf
 
 class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider.Context?) : BlockEntityRenderer<GrindstoneBlockEntity>, BuiltinItemRendererRegistry.DynamicItemRenderer {
@@ -33,6 +34,8 @@ class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider
         poseStack.translate(0.5, -(12/16.0), 0.5)
         rotateGrindstone(blockEntity, poseStack, partialTick)
         model?.renderToBuffer(poseStack, vertexConsumer, light, overlay)
+        //poseStack.translate(-0.5, (12/16.0), -0.5)
+        //ctx?.itemRenderer?.renderStatic(Items.IRON_ORE.defaultInstance, ItemDisplayContext.FIXED, light, overlay, poseStack, multiBufferSource, blockEntity.level, 1000)
         poseStack.popPose()
 
         poseStack.pushPose()
