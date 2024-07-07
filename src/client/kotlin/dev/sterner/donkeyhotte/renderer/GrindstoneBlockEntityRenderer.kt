@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 
-class GrindstoneBlockEntityRenderer(var ctx: BlockEntityRendererProvider.Context) : BlockEntityRenderer<GrindstoneBlockEntity> {
+class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider.Context) : BlockEntityRenderer<GrindstoneBlockEntity> {
 
     var model: GrindstoneBlockEntityModel? = null
 
