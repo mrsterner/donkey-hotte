@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
+import net.minecraft.util.Mth
+import org.joml.Quaternionf
 
 class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider.Context) : BlockEntityRenderer<GrindstoneBlockEntity> {
 
@@ -34,6 +36,9 @@ class GrindstoneBlockEntityRenderer(private var ctx: BlockEntityRendererProvider
     }
 
     private fun rotateGrindstone(blockEntity: GrindstoneBlockEntity, poseStack: PoseStack, partialTick: Float) {
-
+        val angle = blockEntity.angle
+        val oldAngle = blockEntity.oldAngle
+        val lerp = Mth.lerp(partialTick, angle.toFloat(), oldAngle.toFloat())
+        poseStack.mulPose(Quaternionf().rotateY(lerp))
     }
 }
