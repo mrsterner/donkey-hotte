@@ -18,15 +18,33 @@ import net.minecraft.client.renderer.RenderType
 
 class GrindstoneBlockEntityModel(root: ModelPart) : Model(RenderType::entitySolid) {
 
-    private val wheel: ModelPart = root.getChild("wheel")
-    private val wheel2: ModelPart = root.getChild("wheel2")
-    private val wheel3: ModelPart = root.getChild("wheel3")
-    private val wheel4: ModelPart = root.getChild("wheel4")
-    private val wheel5: ModelPart = root.getChild("wheel5")
-    private val wheel6: ModelPart = root.getChild("wheel6")
-    private val wheel7: ModelPart = root.getChild("wheel7")
-    private val wheel8: ModelPart = root.getChild("wheel8")
-    private val wheelface: ModelPart = root.getChild("wheelface")
+    private var wheel: ModelPart? = null
+    /*
+    private var wheel2: ModelPart? = null
+    private var wheel3: ModelPart? = null
+    private var wheel4: ModelPart? = null
+    private var wheel5: ModelPart? = null
+    private var wheel6: ModelPart? = null
+    private var wheel7: ModelPart? = null
+    private var wheel8: ModelPart? = null
+    private var wheelface: ModelPart? = null
+
+     */
+
+    init {
+        wheel = root.getChild("wheel")
+        /*
+        wheel2 = root.getChild("wheel2")
+        wheel3 = root.getChild("wheel3")
+        wheel4 = root.getChild("wheel4")
+        wheel5 = root.getChild("wheel5")
+        wheel6 = root.getChild("wheel6")
+        wheel7 = root.getChild("wheel7")
+        wheel8 = root.getChild("wheel8")
+        wheelface = root.getChild("wheelface")
+
+         */
+    }
 
     override fun renderToBuffer(
         poseStack: PoseStack,
@@ -35,7 +53,7 @@ class GrindstoneBlockEntityModel(root: ModelPart) : Model(RenderType::entitySoli
         packedOverlay: Int,
         color: Int
     ) {
-
+        wheel?.render(poseStack, buffer, packedLight, packedOverlay)
     }
 
     companion object {
