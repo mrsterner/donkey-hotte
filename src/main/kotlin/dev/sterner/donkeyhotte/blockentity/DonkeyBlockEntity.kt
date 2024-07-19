@@ -33,6 +33,11 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
     var refreshRecipe: Boolean = false
 
     var connectedEntity: PathfinderMob? = null
+    var connectedEntityId: Int? = null
+
+    fun hasHorse() : Boolean {
+        return connectedEntity != null
+    }
 
     open fun tick(level: Level, pos: BlockPos, state: BlockState) {
         if (!initialized) {
@@ -46,6 +51,8 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
             recipe = checkForRecipe(level, this)
             refreshRecipe = false
         }
+
+        tickHorse(level, pos)
         /*
         testcode
          */
@@ -53,7 +60,6 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
         if (genericTicker < 20) {
             genericTicker++
             refreshRecipe = true
-            //println("Refresh")
         } else {
             genericTicker = 0
         }
@@ -63,6 +69,18 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
         }
         if (connectedEntity == null || recipe == null) {
             processingTime = 0
+        }
+    }
+
+    fun setHorse(entity: PathfinderMob){
+        connectedEntity = entity
+        connectedEntityId = entity.id
+        setChanged()
+    }
+
+    fun tickHorse(level: Level, pos: BlockPos) {
+        if (hasHorse()) {
+
         }
     }
 
@@ -78,6 +96,12 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
         tag.putInt("ProcessingTime", processingTime)
         tag.putDouble("OldAngle", oldAngle)
         tag.putDouble("Angle", angle)
+
+        //Horse
+        if (connectedEntityId != null) {
+            tag.putInt("EntityId", connectedEntityId!!)
+        }
+
         super.saveAdditional(tag, registries)
     }
 
@@ -85,6 +109,11 @@ abstract class DonkeyBlockEntity(blockEntityType: BlockEntityType<*>, blockPos: 
         processingTime = tag.getInt("ProcessingTime")
         oldAngle = tag.getDouble("OldAngle")
         angle = tag.getDouble("Angle")
+
+        if (tag.contains("EntityId")) {
+            connectedEntityId = tag.getInt("EntityId")
+        }
+
         super.loadAdditional(tag, registries)
     }
 

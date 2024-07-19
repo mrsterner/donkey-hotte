@@ -1,10 +1,11 @@
 {
-	"required": true,
-	"package": "dev.sterner.donkeyhotte.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "dev.sterner.donkeyhotte.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AbstractHorseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
